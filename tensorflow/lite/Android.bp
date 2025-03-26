@@ -36,6 +36,11 @@ cc_defaults {
         "-Wextra",
         "-Wno-unused-parameter",
     ],
+    arch: {
+        arm64: {
+            cflags: ["-mcpu=generic"],
+        },
+    },
     shared_libs: [
         "liblog",
     ],
