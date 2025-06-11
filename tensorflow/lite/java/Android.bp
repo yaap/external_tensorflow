@@ -41,4 +41,7 @@ java_library_static {
         "com.android.extservices",
         "com.android.ondevicepersonalization",
     ],
+    optimize: {
+        proguard_flags_files: ["proguard.flags"],
+    },
 }

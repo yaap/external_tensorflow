@@ -65,7 +65,6 @@ cc_library_headers {
         "//apex_available:platform",
         "com.android.extservices",
         "com.android.neuralnetworks",
-        "test_com.android.neuralnetworks",
         "com.android.adservices",
         "com.android.ondevicepersonalization",
     ],
@@ -206,6 +205,10 @@ cc_library_static {
         "-DTF_ANDROID_ENABLE_LOG_EVERY_N_SECONDS",
         // Used to support int64, string type in //tensorflow/core/framework/register_types.h.
         "-D__ANDROID_TYPES_FULL__",
+        // This code uses malloc_usable_size(),
+        // and thus can't be built with _FORTIFY_SOURCE=3.
+        "-U_FORTIFY_SOURCE",
+        "-D_FORTIFY_SOURCE=2",
         "-Wno-defaulted-function-deleted",
         "-Wno-deprecated-builtins",
         "-Wno-deprecated-declarations",

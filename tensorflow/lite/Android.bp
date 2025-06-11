@@ -146,13 +146,15 @@ cc_library_static {
 cc_library_shared {
     name: "libtflite",
     defaults: ["tflite_defaults"],
-    shared_libs: [
+    static_libs: [
+        "libfft2d",
         "libflatbuffers-cpp",
-        "libruy",
+        "libruy_static",
+    ],
+    shared_libs: [
         "libtextclassifier_hash",
     ],
     whole_static_libs: [
-        "libfft2d",
         "libtflite_context",
         "libtflite_framework",
         "libtflite_kernels",

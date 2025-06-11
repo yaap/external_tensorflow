@@ -29,7 +29,6 @@ cc_library_static {
     apex_available: [
         "//apex_available:platform",
         "com.android.neuralnetworks",
-        "test_com.android.neuralnetworks",
     ],
     srcs: [
         "internal/optimized/neon_tensor_utils.cc",
