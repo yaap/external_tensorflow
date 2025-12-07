@@ -66,10 +66,6 @@ class OptionsBase:
     """Change the mutability property to `mutable`."""
     object.__setattr__(self, "_mutable", mutable)
 
-  def _set_mutable(self, mutable):
-    """Change the mutability property to `mutable`."""
-    object.__setattr__(self, "_mutable", mutable)
-
   def _to_proto(self):
     """Convert options to protocol buffer."""
     raise NotImplementedError("{}._to_proto()".format(type(self).__name__))

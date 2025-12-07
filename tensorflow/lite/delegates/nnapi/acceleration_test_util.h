@@ -19,6 +19,7 @@ limitations under the License.
 #include <string>
 
 #include <gtest/gtest.h>
+#include "absl/types/optional.h"
 #include "tensorflow/lite/delegates/nnapi/nnapi_delegate_kernel.h"
 
 namespace tflite {

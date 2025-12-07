@@ -21,9 +21,9 @@ package {
     default_applicable_licenses: ["external_tensorflow_license"],
 }
 
-filegroup(
-    name = "tensorflow_core_kernels_mobile_srcs",
-    srcs = [
+filegroup {
+    name: "tensorflow_core_kernels_mobile_srcs",
+    srcs: [
         "as_string_op.cc",
         "bcast_ops.cc",
         "concat_op.cc",
@@ -68,4 +68,4 @@ filegroup(
         "data/optional_ops_util.cc",
         "data/batch_dataset_op.cc",
     ],
-)
+}

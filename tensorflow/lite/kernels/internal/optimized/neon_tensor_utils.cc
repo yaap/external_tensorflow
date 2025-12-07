@@ -40,8 +40,7 @@ limitations under the License.
 #if !defined(__ANDROID__) || __ANDROID_API__ >= 28
 // Neither Apple nor Windows provide aligned_alloc.
 #if !defined(__APPLE__) && !defined(_WIN32)
-// TODO(miaowang): Re-enable std::aligned_alloc when it is avalaible in Android.
-// #define TFLITE_USE_STD_ALIGNED_ALLOC
+#define TFLITE_USE_STD_ALIGNED_ALLOC
 #endif
 #endif
 #endif
@@ -82,7 +81,7 @@ inline int RoundDownVectors(int size) {
 inline void* aligned_alloc(size_t alignment, size_t size,
                            void** freeing_buffer) {
 #ifdef TFLITE_USE_STD_ALIGNED_ALLOC
-  *freeing_buffer = std::aligned_alloc(
+  *freeing_buffer = ::aligned_alloc(
       alignment, (size + alignment - 1) / alignment * alignment);
   return *freeing_buffer;
 #else

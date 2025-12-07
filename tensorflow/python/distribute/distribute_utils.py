@@ -18,8 +18,6 @@ from collections import abc
 import contextlib
 import threading
 
-import contextlib
-import threading
 from tensorflow.python.distribute import tpu_values as tpu_values_lib
 from tensorflow.python.distribute import values as values_lib
 from tensorflow.python.eager import context

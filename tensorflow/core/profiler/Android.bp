@@ -21,9 +21,9 @@ package {
     default_applicable_licenses: ["external_tensorflow_license"],
 }
 
-filegroup(
-    name = "tensorflow_core_profiler_mobile_srcs_no_runtime",
-    srcs = [
+filegroup {
+    name: "tensorflow_core_profiler_mobile_srcs_no_runtime",
+    srcs: [
         "lib/scoped_memory_debug_annotation.cc",
     ],
-)
+}

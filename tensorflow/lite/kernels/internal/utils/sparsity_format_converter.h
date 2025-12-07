@@ -17,7 +17,7 @@ limitations under the License.
 
 #include <vector>
 
-#include "Eigen/Core"
+#include "third_party/eigen3/Eigen/Core"
 #include "tensorflow/lite/c/common.h"
 
 namespace tflite {

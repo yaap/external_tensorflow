@@ -16,8 +16,6 @@
 
 import gc
 
-import gc
-
 from tensorflow.core.protobuf import config_pb2
 from tensorflow.python.client import session as session_lib
 from tensorflow.python.distribute.cluster_resolver.tpu_cluster_resolver import TPUClusterResolver

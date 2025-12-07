@@ -387,28 +387,6 @@ void ParallelDevice::AsyncWait(TFE_Context* context, TF_Status* status) const {
   }
 }
 
-void ParallelDevice::AsyncWait(TFE_Context* context, TF_Status* status) const {
-  StatusPtr first_bad_status(nullptr);
-
-  for (const auto& dt : device_threads_) {
-    StatusPtr async_wait_status(TF_NewStatus());
-    dt->AsyncWait(async_wait_status.get());
-    // Prefer non cancelled errors to uncover real failures.
-    if (TF_GetCode(async_wait_status.get()) != TF_OK &&
-        (first_bad_status == nullptr ||
-         TF_GetCode(first_bad_status.get()) == TF_CANCELLED)) {
-      first_bad_status.reset(TF_NewStatus());
-      TF_SetStatus(first_bad_status.get(), TF_GetCode(async_wait_status.get()),
-                   TF_Message(async_wait_status.get()));
-    }
-  }
-
-  if (first_bad_status != nullptr) {
-    TF_SetStatus(status, TF_GetCode(first_bad_status.get()),
-                 TF_Message(first_bad_status.get()));
-  }
-}
-
 absl::optional<std::vector<std::unique_ptr<ParallelTensor>>>
 ParallelDevice::Join(
     const std::vector<PartialTensorShape>& expected_output_shapes,
@@ -613,26 +591,6 @@ Status ParallelTensor::SummarizeValue(std::string& summary) {
   }
   summary += "}";
   return OkStatus();
-}
-
-Status ParallelTensor::SummarizeValue(std::string& summary) {
-  summary = "{";
-  std::vector<std::string> summarized_devices = device_.SummarizeDeviceNames();
-  for (int component_index = 0; component_index < tensors_.size();
-       ++component_index) {
-    // TODO(allenl): Add a C API for summarizing tensors. Currently custom
-    // devices limiting themselves to a C API (for ABI compatibility) would need
-    // to implement summarization for component tensors themselves.
-    ImmediateExecutionTensorHandle* component =
-        tensorflow::unwrap(tensors_[component_index].get());
-    std::string component_summary;
-    TF_RETURN_IF_ERROR(component->SummarizeValue(component_summary));
-    absl::StrAppend(&summary, component_index == 0 ? "" : ", ", "\"",
-                    summarized_devices[component_index],
-                    "\": ", component_summary);
-  }
-  summary += "}";
-  return Status::OK();
 }
 
 }  // namespace parallel_device

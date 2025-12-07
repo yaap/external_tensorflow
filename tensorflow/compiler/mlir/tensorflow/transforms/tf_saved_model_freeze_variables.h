@@ -22,8 +22,6 @@ limitations under the License.
 
 namespace mlir {
 namespace tf_saved_model {
-namespace {
-class InitializeVariablesInSessionInitializerPass;
 
 // Freezes readonly variables in the graph.
 LogicalResult FreezeVariables(ModuleOp module, tensorflow::Session* session);

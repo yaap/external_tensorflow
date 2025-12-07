@@ -21,9 +21,9 @@ package {
     default_applicable_licenses: ["external_tensorflow_license"],
 }
 
-filegroup(
-    name = "tensorflow_compiler_jit_mobile_srcs_no_runtime",
-    srcs = [
+filegroup {
+    name: "tensorflow_compiler_jit_mobile_srcs_no_runtime",
+    srcs: [
         "jit/defs.cc",
     ],
-)
+}

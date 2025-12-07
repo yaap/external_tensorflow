@@ -16,11 +16,9 @@ limitations under the License.
 #ifndef TENSORFLOW_COMPILER_XLA_PYTHON_MLIR_H_
 #define TENSORFLOW_COMPILER_XLA_PYTHON_MLIR_H_
 
-namespace tensorflow {
+#include "pybind11/pybind11.h"
 
-GENERATE_AND_REGISTER_UNARY_CPU_KERNEL(Tanh, DT_HALF);
-GENERATE_AND_REGISTER_UNARY_CPU_KERNEL(Tanh, DT_FLOAT);
-GENERATE_AND_REGISTER_UNARY_CPU_KERNEL(Tanh, DT_DOUBLE);
+namespace xla {
 
 void BuildMlirSubmodule(pybind11::module& m);
 

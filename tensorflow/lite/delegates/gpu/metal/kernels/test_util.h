@@ -49,12 +49,6 @@ class MetalExecutionEnvironment : public TestExecutionEnvironment {
       const std::vector<TensorDescriptor*>& dst_cpu,
       std::unique_ptr<GPUOperation>&& operation) override;
 
-  absl::Status ExecuteGPUOperation(
-      const std::vector<Tensor5DFloat32>& src_cpu,
-      std::unique_ptr<GPUOperation>&& operation,
-      const std::vector<BHWDC>& dst_sizes,
-      const std::vector<Tensor5DFloat32*>& dst_cpu) override;
-
  private:
   MetalDevice device_;
 };

@@ -199,17 +199,6 @@ class V2StrategyTest(test.TestCase, parameterized.TestCase):
     self.assertIsInstance(
         strategy, parameter_server_strategy_v2.ParameterServerStrategyV2)
 
-  @combinations.generate(
-      combinations.combine(strategy=[
-          strategy_combinations.parameter_server_strategy_3worker_2ps_cpu,
-          strategy_combinations.parameter_server_strategy_1worker_2ps_cpu,
-          strategy_combinations.parameter_server_strategy_3worker_2ps_1gpu,
-          strategy_combinations.parameter_server_strategy_1worker_2ps_1gpu,
-      ]))
-  def testParameterServer(self, strategy):
-    self.assertIsInstance(
-        strategy, parameter_server_strategy_v2.ParameterServerStrategyV2)
-
 
 if __name__ == "__main__":
   test_util.main()

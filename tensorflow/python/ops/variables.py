@@ -44,7 +44,6 @@ from tensorflow.python.util import tf_should_use
 from tensorflow.python.util import traceback_utils
 from tensorflow.python.util.deprecation import deprecated
 from tensorflow.python.util.deprecation import deprecated_args
-from tensorflow.python.util import traceback_utils
 from tensorflow.python.util.tf_export import tf_export
 
 

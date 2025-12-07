@@ -383,43 +383,5 @@ class PaddedBatchCheckpointTest(checkpoint_test_base.CheckpointTestBase,
     verify_fn(self, lambda: build_dataset(seq_lens), num_outputs=8)
 
 
-class PaddedBatchCheckpointTest(checkpoint_test_base.CheckpointTestBase,
-                                parameterized.TestCase):
-
-  @combinations.generate(
-      combinations.times(test_base.default_test_combinations(),
-                         checkpoint_test_base.default_test_combinations()))
-  def test(self, verify_fn):
-
-    def build_dataset(seq_lens):
-      return dataset_ops.Dataset.from_tensor_slices(seq_lens).map(
-          lambda x: array_ops.fill([x], x)).padded_batch(
-              batch_size=4, padded_shapes=[-1])
-
-    seq_lens = np.random.randint(1, 20, size=(32,)).astype(np.int32)
-    verify_fn(self, lambda: build_dataset(seq_lens), num_outputs=8)
-
-  @combinations.generate(
-      combinations.times(test_base.default_test_combinations(),
-                         checkpoint_test_base.default_test_combinations()))
-  def testNonDefaultPadding(self, verify_fn):
-
-    def build_dataset(seq_lens):
-
-      def fill_tuple(x):
-        filled = array_ops.fill([x], x)
-        return (filled, string_ops.as_string(filled))
-
-      padded_shape = [-1]
-      return dataset_ops.Dataset.from_tensor_slices(seq_lens).map(
-          fill_tuple).padded_batch(
-              batch_size=4,
-              padded_shapes=(padded_shape, padded_shape),
-              padding_values=(-1, '<end>'))
-
-    seq_lens = np.random.randint(1, 20, size=(32,)).astype(np.int32)
-    verify_fn(self, lambda: build_dataset(seq_lens), num_outputs=8)
-
-
 if __name__ == '__main__':
   test.main()

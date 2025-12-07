@@ -15,8 +15,6 @@
 """Fast-Fourier Transform ops."""
 import re
 
-import re
-
 import numpy as np
 
 from tensorflow.python.framework import dtypes as _dtypes

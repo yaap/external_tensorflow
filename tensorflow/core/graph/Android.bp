@@ -21,9 +21,9 @@ package {
     default_applicable_licenses: ["external_tensorflow_license"],
 }
 
-filegroup(
-    name = "tensorflow_core_graph_mobile_srcs_only_runtime",
-    srcs = [
+filegroup {
+    name: "tensorflow_core_graph_mobile_srcs_only_runtime",
+    srcs: [
         "algorithm.cc",
         "collective_order.cc",
         "colors.cc",
@@ -41,4 +41,4 @@ filegroup(
         "validate.cc",
         "while_context.cc",
     ],
-)
+}

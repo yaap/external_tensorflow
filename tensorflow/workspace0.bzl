@@ -8,48 +8,6 @@ load("@build_bazel_rules_swift//swift:repositories.bzl", "swift_rules_dependenci
 load("@build_bazel_apple_support//lib:repositories.bzl", "apple_support_dependencies")
 load("@com_github_grpc_grpc//bazel:grpc_extra_deps.bzl", "grpc_extra_deps")
 load("@local_config_android//:android.bzl", "android_workspace")
-load("@rules_cc//cc:repositories.bzl", "rules_cc_toolchains")
-
-def _tf_bind():
-    """Bind targets for some external repositories"""
-    ##############################################################################
-    # BIND DEFINITIONS
-    #
-    # Please do not add bind() definitions unless we have no other choice.
-    # If that ends up being the case, please leave a comment explaining
-    # why we can't depend on the canonical build target.
-
-    # Needed by Protobuf
-    native.bind(
-        name = "grpc_cpp_plugin",
-        actual = "@com_github_grpc_grpc//src/compiler:grpc_cpp_plugin",
-    )
-    native.bind(
-        name = "grpc_python_plugin",
-        actual = "@com_github_grpc_grpc//src/compiler:grpc_python_plugin",
-    )
-
-    native.bind(
-        name = "grpc_lib",
-        actual = "@com_github_grpc_grpc//:grpc++",
-    )
-
-    native.bind(
-        name = "grpc_lib_unsecure",
-        actual = "@com_github_grpc_grpc//:grpc++_unsecure",
-    )
-
-    # Needed by Protobuf
-    native.bind(
-        name = "python_headers",
-        actual = str(Label("//third_party/python_runtime:headers")),
-    )
-
-    # Needed by Protobuf
-    native.bind(
-        name = "six",
-        actual = "@six_archive//:six",
-    )
 
 def _tf_bind():
     """Bind targets for some external repositories"""
@@ -145,8 +103,6 @@ def workspace():
             "https://storage.googleapis.com/download.tensorflow.org/data/tf_lite_micro_person_data_grayscale_2020_05_24.zip",
         ],
     )
-
-    rules_cc_toolchains()
 
     bazel_toolchains_repositories()
 

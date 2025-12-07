@@ -12,8 +12,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
-#include "third_party/eigen3/unsupported/Eigen/CXX11/Tensor"
-#include "tensorflow/core/kernels/mlir_generated/base_gpu_op.h"
 
 #ifndef TENSORFLOW_COMPILER_XLA_STREAM_EXECUTOR_GPU_LAUNCH_DIM_H_
 #define TENSORFLOW_COMPILER_XLA_STREAM_EXECUTOR_GPU_LAUNCH_DIM_H_

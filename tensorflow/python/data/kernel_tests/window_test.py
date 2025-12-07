@@ -269,20 +269,5 @@ class WindowCheckpointTest(checkpoint_test_base.CheckpointTestBase,
     verify_fn(self, self._build_dataset, num_outputs=42)
 
 
-class WindowCheckpointTest(checkpoint_test_base.CheckpointTestBase,
-                           parameterized.TestCase):
-
-  def _build_dataset(self):
-    dataset = dataset_ops.Dataset.range(42).window(6).interleave(
-        lambda x: x, cycle_length=2, num_parallel_calls=2)
-    return dataset
-
-  @combinations.generate(
-      combinations.times(test_base.default_test_combinations(),
-                         checkpoint_test_base.default_test_combinations()))
-  def test(self, verify_fn):
-    verify_fn(self, self._build_dataset, num_outputs=42)
-
-
 if __name__ == "__main__":
   test.main()

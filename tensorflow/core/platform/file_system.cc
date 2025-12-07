@@ -87,12 +87,6 @@ Status FileSystem::HasAtomicMove(const string& path, bool* has_atomic_move) {
   return OkStatus();
 }
 
-Status FileSystem::CanCreateTempFile(const std::string& fname,
-                                     bool* can_create_temp_file) {
-  *can_create_temp_file = true;
-  return OkStatus();
-}
-
 void FileSystem::FlushCaches(TransactionToken* token) {}
 
 bool FileSystem::FilesExist(const std::vector<string>& files,

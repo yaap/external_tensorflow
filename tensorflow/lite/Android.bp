@@ -31,9 +31,7 @@ cc_defaults {
     ],
     cflags: [
         "-DTF_LITE_DISABLE_X86_NEON",
-        "-Wall",
         "-Werror",
-        "-Wextra",
         "-Wno-unused-parameter",
     ],
     arch: {
@@ -50,10 +48,6 @@ cc_library_static {
     name: "libtflite_context",
     defaults: ["tflite_defaults"],
     srcs: ["c/common.cc"],
-    cflags: [
-        "-Wno-typedef-redefinition",
-        "-Wno-visibility",
-    ],
 }
 
 cc_library_static {
@@ -129,16 +123,6 @@ cc_library_static {
     ],
     cflags: [
         "-DNAMESPACE_FOR_HASH_FUNCTIONS=farmhash",
-        "-Wno-deprecated-declarations",
-        "-Wno-extern-c-compat",
-        "-Wno-ignored-attributes",
-        "-Wno-invalid-partial-specialization",
-        "-Wno-mismatched-tags",
-        "-Wno-missing-field-initializers",
-        "-Wno-sign-compare",
-        "-Wno-unused-const-variable",
-        "-Wno-unused-function",
-        "-Wno-unused-lambda-capture",
         "-Wno-user-defined-warnings",
     ],
 }
@@ -160,6 +144,54 @@ cc_library_shared {
         "libtflite_kernels",
     ],
     stl: "libc++_static",
+}
+
+// Standalone shared library that exports the pure TensorFlow Lite C API.
+cc_library_shared {
+    name: "libtensorflowlite_c",
+    defaults: ["tflite_defaults"],
+    whole_static_libs: ["libtflite_static"],
+    stl: "libc++_static",
+    version_script: "c/version_script.lds",
+    export_header_lib_headers: ["tensorflow_headers"],
+}
+
+// Repackaging of test data paths so the hardcoded test paths work.
+genrule {
+    name: "tflite_testdata",
+    srcs: [
+        "testdata/add.bin",
+        "testdata/add_quantized.bin",
+        "testdata/custom_sinh.bin",
+        "testdata/multi_signatures.bin",
+    ],
+    cmd: "mkdir -p $(genDir)/tensorflow/lite/testdata && " +
+        "cp $(in) $(genDir)/tensorflow/lite/testdata/",
+    out: [
+        "tensorflow/lite/testdata/add.bin",
+        "tensorflow/lite/testdata/add_quantized.bin",
+        "tensorflow/lite/testdata/custom_sinh.bin",
+        "tensorflow/lite/testdata/multi_signatures.bin",
+    ],
+}
+
+// Basic gtest ensuring the C API links and runs correctly.
+cc_test {
+    name: "libtensorflowlite_c_api_test",
+    host_supported: true,
+    srcs: ["c/c_api_signature_runner_test.cc"],
+    data: [":tflite_testdata"],
+    shared_libs: ["libtensorflowlite_c"],
+}
+
+// Basic (non-gtest) test ensuring the pure C API links and runs correctly.
+cc_test {
+    name: "libtensorflowlite_c_test",
+    host_supported: true,
+    gtest: false,
+    srcs: ["c/c_test.c"],
+    data: [":tflite_testdata"],
+    shared_libs: ["libtensorflowlite_c"],
 }
 
 cc_library_shared {
@@ -207,7 +239,7 @@ cc_library_static {
     name: "tflite_mutable_op_resolver",
     defaults: ["tflite_defaults"],
     srcs: [
-        "mutable_op_resolver.cc"
+        "mutable_op_resolver.cc",
     ],
     header_libs: [
         "flatbuffer_headers",

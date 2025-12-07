@@ -16,8 +16,6 @@
 
 import os
 
-import os
-
 from absl.testing import parameterized
 
 import sqlite3

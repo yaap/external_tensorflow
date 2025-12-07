@@ -26,7 +26,7 @@ limitations under the License.
 #include <memory>
 #include <type_traits>
 
-#include "Eigen/Core"
+#include "third_party/eigen3/Eigen/Core"
 #include "fixedpoint/fixedpoint.h"
 #include "ruy/profiler/instrumentation.h"  // from @ruy
 #include "tensorflow/lite/c/c_api_types.h"

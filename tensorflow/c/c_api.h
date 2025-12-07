@@ -104,10 +104,6 @@ TF_CAPI_EXPORT extern const char* TF_Version(void);
 TF_CAPI_EXPORT extern void TF_TensorFromProto(const TF_Buffer* from,
                                               TF_Tensor* to, TF_Status* status);
 
-// Parsing a serialized TensorProto into a TF_Tensor.
-TF_CAPI_EXPORT extern void TF_TensorFromProto(const TF_Buffer* from,
-                                              TF_Tensor* to, TF_Status* status);
-
 // --------------------------------------------------------------------------
 // Used to return strings across the C API. The caller does not take ownership
 // of the underlying data pointer and is not responsible for freeing it.

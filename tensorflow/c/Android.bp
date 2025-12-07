@@ -21,16 +21,16 @@ package {
     default_applicable_licenses: ["external_tensorflow_license"],
 }
 
-filegroup(
-    name = "tensorflow_c_srcs",
-    srcs = [
+filegroup {
+    name: "tensorflow_c_srcs",
+    srcs: [
         "*.cc",
     ],
-    exclude_srcs = [
+    exclude_srcs: [
         "c_api_experimental.cc",
         "c_api_experimental.h",
         "python_api.cc",
         "python_api.h",
         "*test*",
     ],
-)
+}

@@ -21,9 +21,9 @@ package {
     default_applicable_licenses: ["external_tensorflow_license"],
 }
 
-filegroup(
-    name = "tensorflow_core_data_mobile_srcs_no_runtime",
-    srcs = [
+filegroup {
+    name: "tensorflow_core_data_mobile_srcs_no_runtime",
+    srcs: [
         "name_utils.cc",
         "captured_function.cc",
         "dataset_utils.cc",
@@ -36,4 +36,4 @@ filegroup(
         "rewrite_utils.cc",
         "utils.cc",
     ],
-)
+}

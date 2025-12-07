@@ -665,39 +665,5 @@ class RebatchDatasetCheckpointTest(checkpoint_test_base.CheckpointTestBase,
     verify_fn(self, lambda: build_dataset(64, 8), num_outputs=8)
 
 
-class LegacyRebatchDatasetCheckpointTest(
-    checkpoint_test_base.CheckpointTestBase, parameterized.TestCase):
-
-  @combinations.generate(
-      combinations.times(test_base.default_test_combinations(),
-                         checkpoint_test_base.default_test_combinations()))
-  def test(self, verify_fn):
-
-    def build_dataset(num_elements, batch_size):
-      return distribute._LegacyRebatchDataset(
-          dataset_ops.Dataset.range(num_elements).batch(
-              4 * batch_size, drop_remainder=True),
-          num_replicas=4)
-
-    verify_fn(self, lambda: build_dataset(64, 8), num_outputs=8)
-
-
-class RebatchDatasetCheckpointTest(checkpoint_test_base.CheckpointTestBase,
-                                   parameterized.TestCase):
-
-  @combinations.generate(
-      combinations.times(test_base.default_test_combinations(),
-                         checkpoint_test_base.default_test_combinations()))
-  def test(self, verify_fn):
-
-    def build_dataset(num_elements, batch_size):
-      return distribute._RebatchDataset(
-          dataset_ops.Dataset.range(num_elements).batch(
-              2 * batch_size, drop_remainder=True),
-          batch_sizes=[batch_size, batch_size])
-
-    verify_fn(self, lambda: build_dataset(64, 8), num_outputs=8)
-
-
 if __name__ == "__main__":
   test.main()

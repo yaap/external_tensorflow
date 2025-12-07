@@ -78,12 +78,6 @@ struct FusedBatchNormFreezeGrad<GPUDevice, T, U> {
             "A deterministic GPU implementation of fused batch-norm backprop,"
             " when training is disabled, is not currently available."));
 
-    OP_REQUIRES(
-        context, !OpDeterminismRequired(),
-        errors::Unimplemented(
-            "A deterministic GPU implementation of fused batch-norm backprop,"
-            " when training is disabled, is not currently available."));
-
     // offset_backprop  = sum(y_backprop)
     // scale_backprop = y_backprop * ((x - pop_mean) * rsqrt(pop_var + epsilon))
     // x_backprop = y_backprop * (scale * rsqrt(pop_var + epsilon))

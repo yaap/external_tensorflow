@@ -72,13 +72,5 @@ XnnpackDelegateProvider::CreateRankedTfLiteDelegate(
                         params.GetPosition<bool>("use_xnnpack"));
 }
 
-std::pair<TfLiteDelegatePtr, int>
-XnnpackDelegateProvider::CreateRankedTfLiteDelegate(
-    const ToolParams& params) const {
-  auto ptr = CreateTfLiteDelegate(params);
-  return std::make_pair(std::move(ptr),
-                        params.GetPosition<bool>("use_xnnpack"));
-}
-
 }  // namespace tools
 }  // namespace tflite

@@ -208,12 +208,6 @@ class CSVDatasetOp : public DatasetOpKernel {
       return OkStatus();
     }
 
-    Status InputDatasets(
-        std::vector<const DatasetBase*>* inputs) const override {
-      inputs->clear();
-      return Status::OK();
-    }
-
    protected:
     Status AsGraphDefInternal(SerializationContext* ctx,
                               DatasetGraphDefBuilder* b,

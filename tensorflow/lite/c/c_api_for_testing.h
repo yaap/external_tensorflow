@@ -19,7 +19,7 @@ limitations under the License.
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+#endif  // __cplusplus
 
 // Gets the number of CPU threads to use for the interpreter.
 TFL_CAPI_EXPORT extern int32_t TfLiteInterpreterOptionsGetNumThreads(
@@ -27,6 +27,6 @@ TFL_CAPI_EXPORT extern int32_t TfLiteInterpreterOptionsGetNumThreads(
 
 #ifdef __cplusplus
 }  // extern "C"
-#endif
+#endif  // __cplusplus
 
 #endif  // TENSORFLOW_LITE_C_C_API_FOR_TESTING_H_

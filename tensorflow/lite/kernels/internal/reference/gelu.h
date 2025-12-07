@@ -18,8 +18,8 @@ limitations under the License.
 #include <cmath>
 #include <functional>
 
-#include "Eigen/Core"
-#include "unsupported/Eigen/CXX11/Tensor"
+#include "third_party/eigen3/Eigen/Core"
+#include "third_party/eigen3/unsupported/Eigen/CXX11/Tensor"
 #include "tensorflow/lite/kernels/internal/common.h"
 #include "tensorflow/lite/kernels/internal/constants.h"
 #include "tensorflow/lite/kernels/internal/types.h"

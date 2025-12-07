@@ -101,7 +101,7 @@ class tstring {
   tstring(size_t n, char c);
   explicit tstring(const StringPiece str);
 #ifdef PLATFORM_GOOGLE
-  explicit tstring(const std::Cord& cord);
+  explicit tstring(const absl::Cord& cord);
 #endif  // PLATFORM_GOOGLE
 
   // Copy
@@ -120,7 +120,7 @@ class tstring {
   tstring& operator=(char ch);
   tstring& operator=(const StringPiece str);
 #ifdef PLATFORM_GOOGLE
-  tstring& operator=(const std::Cord& cord);
+  tstring& operator=(const absl::Cord& cord);
 #endif  // PLATFORM_GOOGLE
 
   // View Assignment
@@ -145,7 +145,7 @@ class tstring {
   operator StringPiece() const;  // NOLINT
 #ifdef PLATFORM_GOOGLE
   template <typename T,
-            typename std::enable_if<std::is_same<T, std::AlphaNum>::value,
+            typename std::enable_if<std::is_same<T, absl::AlphaNum>::value,
                                     T>::type* = nullptr>
   operator T() const;  // NOLINT TODO(b/147740521): Remove.
 #endif  // PLATFORM_GOOGLE
@@ -248,7 +248,7 @@ inline tstring::tstring(const StringPiece str)
     : tstring(str.data(), str.size()) {}
 
 #ifdef PLATFORM_GOOGLE
-inline tstring::tstring(const std::Cord& cord) {
+inline tstring::tstring(const absl::Cord& cord) {
   TF_TString_Init(&tstr_);
   TF_TString_ResizeUninitialized(&tstr_, cord.size());
 
@@ -307,7 +307,7 @@ inline tstring& tstring::operator=(const StringPiece str) {
 }
 
 #ifdef PLATFORM_GOOGLE
-inline tstring& tstring::operator=(const std::Cord& cord) {
+inline tstring& tstring::operator=(const absl::Cord& cord) {
   TF_TString_ResizeUninitialized(&tstr_, cord.size());
 
   cord.CopyToArray(data());
@@ -382,7 +382,7 @@ inline tstring::operator StringPiece() const {
 
 #ifdef PLATFORM_GOOGLE
 template <typename T, typename std::enable_if<
-                          std::is_same<T, std::AlphaNum>::value, T>::type*>
+                          std::is_same<T, absl::AlphaNum>::value, T>::type*>
 inline tstring::operator T() const {
   return T(StringPiece(*this));
 }

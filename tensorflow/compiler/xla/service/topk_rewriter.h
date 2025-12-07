@@ -47,13 +47,6 @@ class TopkRewriter : public HloModulePass {
       HloModule* module,
       const absl::flat_hash_set<absl::string_view>& execution_threads);
 
- protected:
-  // Check if the sort instruction is in TopK.
-  absl::optional<int64> SortIsInTopK(HloInstruction* inst);
-
-  // Transform to CustomCall.
-  StatusOr<bool> TransformToCustomCall(HloModule* module);
-
  private:
   // Predicate that returns true if a sort instruction is profitable to be
   // converted into a custom call.

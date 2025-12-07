@@ -21,9 +21,9 @@ package {
     default_applicable_licenses: ["external_tensorflow_license"],
 }
 
-filegroup(
-    name = "tflite_flex_delegate",
-    srcs = [
+filegroup {
+    name: "tflite_flex_delegate",
+    srcs: [
         "flex/buffer_map.cc",
         "flex/buffer_map_util.cc",
         "flex/delegate.cc",
@@ -33,4 +33,4 @@ filegroup(
         "flex/tflite_subgraph_execute.cc",
         "utils/simple_delegate.cc",
     ],
-)
+}

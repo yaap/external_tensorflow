@@ -1,4 +1,3 @@
-
 // Copyright (C) 2017 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,9 +21,9 @@ package {
     default_applicable_licenses: ["external_tensorflow_license"],
 }
 
-filegroup(
-    name = "tensorflow_core_lib_io_mobile_src_only_runtime",
-    srcs = [
+filegroup {
+    name: "tensorflow_core_lib_io_mobile_src_only_runtime",
+    srcs: [
         "block.cc",
         "block_builder.cc",
         "buffered_inputstream.cc",
@@ -42,4 +41,4 @@ filegroup(
         "zlib_compression_options.cc",
         "zlib_inputstream.cc",
     ],
-)
+}

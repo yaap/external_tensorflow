@@ -93,12 +93,6 @@ bool CredentialsFactory::Exists(absl::string_view protocol) {
          credentials_factories().end();
 }
 
-bool CredentialsFactory::Exists(absl::string_view protocol) {
-  mutex_lock l(*get_lock());
-  return credentials_factories().find(std::string(protocol)) !=
-         credentials_factories().end();
-}
-
 class InsecureCredentialsFactory : public CredentialsFactory {
  public:
   std::string Protocol() override { return "grpc"; }

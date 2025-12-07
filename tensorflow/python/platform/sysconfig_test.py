@@ -15,8 +15,6 @@
 
 import re
 
-import re
-
 from tensorflow.python.platform import googletest
 from tensorflow.python.platform import sysconfig
 from tensorflow.python.platform import test

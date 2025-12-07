@@ -1540,18 +1540,3 @@ py_strict_test(
         "@absl_py//absl/testing:parameterized",
     ],
 )
-
-py_test(
-    name = "ragged_matmul_op_test",
-    srcs = ["ragged_matmul_op_test.py"],
-    python_version = "PY3",
-    srcs_version = "PY3",
-    deps = [
-        ":ragged_concat_ops",
-        ":ragged_math_ops",
-        ":ragged_tensor",
-        "//tensorflow/python:constant_op",
-        "//tensorflow/python:framework_test_lib",
-        "@absl_py//absl/testing:parameterized",
-    ],
-)

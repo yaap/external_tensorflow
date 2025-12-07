@@ -1,4 +1,3 @@
-
 // Copyright (C) 2017 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,9 +21,9 @@ package {
     default_applicable_licenses: ["external_tensorflow_license"],
 }
 
-filegroup(
-    name = "tensorflow_core_framework_mobile_srcs_only_runtime",
-    srcs = [
+filegroup {
+    name: "tensorflow_core_framework_mobile_srcs_only_runtime",
+    srcs: [
         "attr_value.pb_text.cc",
         "attr_value_util.cc",
         "cancellation.cc",
@@ -70,11 +69,11 @@ filegroup(
         "types.pb_text.cc",
         "versions.cc",
     ],
-)
+}
 
-filegroup(
-    name = "tensorflow_core_framework_mobile_srcs_no_runtime",
-    srcs = [
+filegroup {
+    name: "tensorflow_core_framework_mobile_srcs_no_runtime",
+    srcs: [
         "allocator.cc",
         "allocator_registry.cc",
         "bfloat16.cc",
@@ -95,4 +94,4 @@ filegroup(
         "variant_op_registry.cc",
         "variant_tensor_data.cc",
     ],
-)
+}

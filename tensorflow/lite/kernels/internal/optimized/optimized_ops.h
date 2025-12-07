@@ -36,8 +36,8 @@ limitations under the License.
 #include <Accelerate/Accelerate.h>
 #endif
 
-#include "Eigen/Core"
-#include "unsupported/Eigen/CXX11/Tensor"
+#include "third_party/eigen3/Eigen/Core"
+#include "third_party/eigen3/unsupported/Eigen/CXX11/Tensor"
 #include "fixedpoint/fixedpoint.h"
 #include "ruy/profiler/instrumentation.h"  // from @ruy
 #include "tensorflow/lite/c/common.h"
@@ -7286,8 +7286,7 @@ template <typename T>
 inline void Transpose3D(const TransposeParams& params,
                         const RuntimeShape& input_shape, const T* input_data,
                         const RuntimeShape& output_shape, T* output_data) {
-  int s1, s2, s3;
-  s1 = input_shape.Dims(0);
+  int s2, s3;
   s2 = input_shape.Dims(1);
   s3 = input_shape.Dims(2);
 

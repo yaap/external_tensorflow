@@ -18,11 +18,13 @@ limitations under the License.
 #include <algorithm>
 #include <atomic>
 #include <functional>
-#include <optional>
 #include <iterator>
 #include <optional>
 #include <string>
 #include <vector>
+
+#include "absl/types/optional.h"
+#include "re2/re2.h"
 
 namespace tflite {
 
@@ -44,8 +46,7 @@ class ConfigurationEntry {
         is_denylist_(is_denylist) {}
 
   bool Matches(const std::string& test_id) {
-    // Always return false on Android because there is no re2 library available.
-    return false;
+    return RE2::FullMatch(test_id, test_id_rex_);
   }
   bool IsDenylistEntry() const { return is_denylist_; }
   const T& TestConfig() const { return test_config_; }

@@ -21,12 +21,12 @@ package {
     default_applicable_licenses: ["external_tensorflow_license"],
 }
 
-filegroup(
-    name = "tensorflow_core_common_runtime_mobile_srcs_only_runtime",
-    srcs = [
+filegroup {
+    name: "tensorflow_core_common_runtime_mobile_srcs_only_runtime",
+    srcs: [
         "**/*.cc",
     ],
-    exclude_srcs = [
+    exclude_srcs: [
         "**/*test.*",
         "**/*testutil*",
         "**/*testlib*",
@@ -37,4 +37,4 @@ filegroup(
         // dynamic_cast usage in pluggable_device requires set "rtti: true".
         "pluggable_device/*.cc",
     ],
-)
+}

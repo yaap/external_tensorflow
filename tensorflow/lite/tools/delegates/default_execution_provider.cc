@@ -108,12 +108,5 @@ DefaultExecutionProvider::CreateRankedTfLiteDelegate(
   return std::make_pair(std::move(ptr), 0);
 }
 
-std::pair<TfLiteDelegatePtr, int>
-DefaultExecutionProvider::CreateRankedTfLiteDelegate(
-    const ToolParams& params) const {
-  auto ptr = CreateTfLiteDelegate(params);
-  return std::make_pair(std::move(ptr), 0);
-}
-
 }  // namespace tools
 }  // namespace tflite

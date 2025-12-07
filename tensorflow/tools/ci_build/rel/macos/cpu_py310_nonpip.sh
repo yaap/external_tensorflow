@@ -17,9 +17,6 @@ set -e
 set -x
 
 source tensorflow/tools/ci_build/release/common.sh
-
-install_ubuntu_16_python_pip_deps python3.7
-# Update bazel
 install_bazelisk
 
 # Selects a version of Xcode.

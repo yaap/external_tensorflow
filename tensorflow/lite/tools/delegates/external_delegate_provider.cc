@@ -126,13 +126,5 @@ ExternalDelegateProvider::CreateRankedTfLiteDelegate(
                                             "external_delegate_path"));
 }
 
-std::pair<TfLiteDelegatePtr, int>
-ExternalDelegateProvider::CreateRankedTfLiteDelegate(
-    const ToolParams& params) const {
-  auto ptr = CreateTfLiteDelegate(params);
-  return std::make_pair(std::move(ptr), params.GetPosition<std::string>(
-                                            "external_delegate_path"));
-}
-
 }  // namespace tools
 }  // namespace tflite

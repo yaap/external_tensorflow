@@ -15,7 +15,6 @@
 """Device-related support functions."""
 
 
-
 from tensorflow.python.eager import context
 from tensorflow.python.framework import config
 from tensorflow.python.framework import device as tf_device

@@ -227,7 +227,8 @@ TfLiteStatus AbsEval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteType type = input->type;
   switch (type) {
     case kTfLiteFloat32:
-      return EvalImpl<float>(context, node, std::abs<float>, type);
+      return EvalImpl<float>(
+          context, node, [](float f) { return std::abs(f); }, type);
     case kTfLiteInt8:
       return AbsEvalQuantized<int8_t>(context, node, type);
     case kTfLiteInt16:

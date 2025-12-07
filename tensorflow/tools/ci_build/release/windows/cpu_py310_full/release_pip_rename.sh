@@ -14,11 +14,9 @@
 # limitations under the License.
 # ==============================================================================
 set -e
+set -x
 
-# Install latest bazel
 source tensorflow/tools/ci_build/release/common.sh
-install_bazelisk
-which bazel
 
 # Rename to tensorflow_cpu
 for f in $(ls py_test_dir/tensorflow-*cp3*-cp3*m-win_amd64.whl); do

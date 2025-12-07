@@ -22,5 +22,3 @@ TFRT_STATIC_KERNEL_REGISTRATION(RegisterTfJitRuntimeKernels);
 }  // namespace kernels
 
 }  // namespace tensorflow
-
-#endif  // TENSORFLOW_CORE_UTIL_DETERMINISM_H_

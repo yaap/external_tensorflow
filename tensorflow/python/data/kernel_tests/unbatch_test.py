@@ -249,28 +249,5 @@ class UnbatchCheckpointTest(checkpoint_test_base.CheckpointTestBase,
               num_outputs)
 
 
-class UnbatchCheckpointTest(checkpoint_test_base.CheckpointTestBase,
-                            parameterized.TestCase):
-
-  def build_dataset(self, multiplier=15.0, tensor_slice_len=2, batch_size=2):
-    components = (np.arange(tensor_slice_len), np.array([[1, 2, 3]]) *
-                  np.arange(tensor_slice_len)[:, np.newaxis],
-                  np.array(multiplier) * np.arange(tensor_slice_len))
-
-    return dataset_ops.Dataset.from_tensor_slices(components).batch(
-        batch_size).unbatch()
-
-  @combinations.generate(
-      combinations.times(test_base.default_test_combinations(),
-                         checkpoint_test_base.default_test_combinations()))
-  def test(self, verify_fn):
-    tensor_slice_len = 8
-    batch_size = 2
-    num_outputs = tensor_slice_len
-    verify_fn(self,
-              lambda: self.build_dataset(15.0, tensor_slice_len, batch_size),
-              num_outputs)
-
-
 if __name__ == "__main__":
   test.main()

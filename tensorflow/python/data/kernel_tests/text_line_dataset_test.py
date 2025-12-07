@@ -254,30 +254,5 @@ class TextLineDatasetCheckpointTest(TextLineDatasetTestBase,
         num_outputs)
 
 
-class TextLineDatasetCheckpointTest(TextLineDatasetTestBase,
-                                    checkpoint_test_base.CheckpointTestBase,
-                                    parameterized.TestCase):
-
-  def _build_iterator_graph(self, test_filenames, compression_type=None):
-    return readers.TextLineDataset(
-        test_filenames, compression_type=compression_type, buffer_size=10)
-
-  @combinations.generate(
-      combinations.times(
-          test_base.default_test_combinations(),
-          checkpoint_test_base.default_test_combinations(),
-          combinations.combine(compression_type=[None, "GZIP", "ZLIB"])))
-  def test(self, verify_fn, compression_type):
-    num_files = 5
-    lines_per_file = 5
-    num_outputs = num_files * lines_per_file
-    test_filenames = self._createFiles(
-        num_files, lines_per_file, crlf=True, compression_type=compression_type)
-    verify_fn(
-        self,
-        lambda: self._build_iterator_graph(test_filenames, compression_type),
-        num_outputs)
-
-
 if __name__ == "__main__":
   test.main()

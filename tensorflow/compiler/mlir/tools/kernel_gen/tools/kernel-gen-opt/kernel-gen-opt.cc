@@ -38,7 +38,6 @@ int main(int argc, char **argv) {
   registry.insert<mlir::gml_st::GmlStDialect,
                   mlir::kernel_gen::tf_framework::TFFrameworkDialect>();
 
-  return failed(mlir::MlirOptMain(argc, argv, "MLIR HLO pass driver\n",
-                                  registry,
-                                  /*preloadDialectsInContext=*/false));
+  return failed(
+      mlir::MlirOptMain(argc, argv, "MLIR HLO pass driver\n", registry));
 }

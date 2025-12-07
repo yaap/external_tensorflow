@@ -47,7 +47,4 @@ extern llvm::cl::opt<bool> unconditionally_use_set_output_shapes;
 // Export options.
 extern llvm::cl::opt<bool> export_entry_func_to_flib;
 
-// Export options.
-extern llvm::cl::opt<bool> export_entry_func_to_flib;
-
 #endif  // TENSORFLOW_COMPILER_MLIR_TENSORFLOW_TRANSLATE_TF_MLIR_TRANSLATE_CL_H_

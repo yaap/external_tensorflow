@@ -80,14 +80,6 @@ class BFloat16Propagation : public HloModulePass {
   // instruction in the forward pass.
   virtual bool InstructionIsCandidateForBF16Output(HloInstruction* hlo);
 
-  // Returns whether we should avoid changing the precision of inst regardless
-  // of the producers and users.
-  virtual bool ShouldKeepPrecisionUnchanged(const HloInstruction* inst);
-
-  // Determines whether we should consider changing the precision of the given
-  // instruction in the forward pass.
-  virtual bool InstructionIsCandidateForBF16Output(HloInstruction* hlo);
-
  private:
   // ***************************
   // Function called and state produced by the forward analysis pass (from

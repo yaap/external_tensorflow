@@ -1,4 +1,3 @@
-
 // Copyright (C) 2017 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,9 +21,9 @@ package {
     default_applicable_licenses: ["external_tensorflow_license"],
 }
 
-filegroup(
-    name = "tensorflow_core_platform_mobile_srcs_no_runtime",
-    srcs = [
+filegroup {
+    name: "tensorflow_core_platform_mobile_srcs_no_runtime",
+    srcs: [
         "abi.cc",
         "coding.cc",
         "cpu_info.cc",
@@ -49,11 +48,11 @@ filegroup(
         "tracing.cc",
         "threadpool.cc",
     ],
-)
+}
 
-filegroup(
-    name = "tensorflow_core_platform_mobile_srcs_only_runtime",
-    srcs = [
+filegroup {
+    name: "tensorflow_core_platform_mobile_srcs_only_runtime",
+    srcs: [
         "base64.cc",
         "cpu_feature_guard.cc",
         "platform_strings.cc",
@@ -61,4 +60,4 @@ filegroup(
         "profile_utils/android_armv7a_cpu_utils_helper.cc",
         "profile_utils/cpu_utils.cc",
     ],
-)
+}

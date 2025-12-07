@@ -84,41 +84,6 @@ func.func @move_across_double_transpose(%arg0: tensor<1x4x4x8xf32>, %arg1: tenso
   func.return %5 : tensor<1x4x8x4xf32>
 }
 
-// CHECK-LABEL: func @move_across_broadcastable_op
-func @move_across_broadcastable_op(%arg0: tensor<1x4x1x8xf32>, %arg1: tensor<1x4x4x8xf32>) -> tensor<1x8x4x4xf32> {
-
-  // CHECK: %[[RES_PERM:.*]] = "tf.Const"() {value = dense<[0, 3, 1, 2]> : tensor<4xi32>}
-  // CHECK: %[[ADD:[0-9]*]] = "tf.AddV2"(%arg0, %arg1) : (tensor<1x4x1x8xf32>, tensor<1x4x4x8xf32>) -> tensor<1x4x4x8xf32>
-  // CHECK: %[[RES_TRANSPOSE:[0-9]*]] = "tf.Transpose"(%[[ADD]], %[[RES_PERM]])
-  // CHECK: return %[[RES_TRANSPOSE]]
-
-  %0 = "tf.Const"() {value = dense<[0, 3, 1, 2]> : tensor<4xi32>} : () -> tensor<4xi32>
-  %1 = "tf.Transpose"(%arg0, %0) : (tensor<1x4x1x8xf32>, tensor<4xi32>) -> tensor<1x8x4x1xf32>
-  %2 = "tf.Transpose"(%arg1, %0) : (tensor<1x4x4x8xf32>, tensor<4xi32>) -> tensor<1x8x4x4xf32>
-  %3 = "tf.AddV2"(%1, %2) : (tensor<1x8x4x1xf32>, tensor<1x8x4x4xf32>) -> tensor<1x8x4x4xf32>
-
-  return %3 : tensor<1x8x4x4xf32>
-}
-
-// CHECK-LABEL: func @move_across_double_transpose
-func @move_across_double_transpose(%arg0: tensor<1x4x4x8xf32>, %arg1: tensor<1x4x4x8xf32>) -> tensor<1x4x8x4xf32> {
-
-  // CHECK: %[[RES_PERM:.*]] = "tf.Const"() {value = dense<[0, 3, 1, 2]> : tensor<4xi32>}
-  // CHECK: %[[ADD:[0-9]*]] = "tf.AddV2"(%arg0, %arg1) : (tensor<1x4x4x8xf32>, tensor<1x4x4x8xf32>) -> tensor<1x4x4x8xf32>
-  // CHECK: %[[RES_TRANSPOSE_0:[0-9]*]] = "tf.Transpose"(%[[ADD]], %[[RES_PERM]])
-  // CHECK: %[[RES_TRANSPOSE_1:[0-9]*]] = "tf.Transpose"(%[[RES_TRANSPOSE_0]], %[[RES_PERM]])
-  // CHECK: return %[[RES_TRANSPOSE_1]]
-
-  %0 = "tf.Const"() {value = dense<[0, 3, 1, 2]> : tensor<4xi32>} : () -> tensor<4xi32>
-  %1 = "tf.Transpose"(%arg0, %0) : (tensor<1x4x4x8xf32>, tensor<4xi32>) -> tensor<1x8x4x4xf32>
-  %2 = "tf.Transpose"(%1, %0) : (tensor<1x8x4x4xf32>, tensor<4xi32>) -> tensor<1x4x8x4xf32>
-  %3 = "tf.Transpose"(%arg1, %0) : (tensor<1x4x4x8xf32>, tensor<4xi32>) -> tensor<1x8x4x4xf32>
-  %4 = "tf.Transpose"(%3, %0) : (tensor<1x8x4x4xf32>, tensor<4xi32>) -> tensor<1x4x8x4xf32>
-  %5 = "tf.AddV2"(%2, %4) : (tensor<1x4x8x4xf32>, tensor<1x4x8x4xf32>) -> tensor<1x4x8x4xf32>
-
-  return %5 : tensor<1x4x8x4xf32>
-}
-
 // CHECK-LABEL: func @fold_into_max_pool
 func.func @fold_into_max_pool(%arg0: tensor<1x64x112x112xf32>) -> tensor<1x56x56x64xf32> {
 
@@ -212,21 +177,4 @@ func.func @fold_into_pad_with_extra_uses(%arg0: tensor<1x2x4x4x3xf32>) -> (tenso
   %2 = "tf.Transpose"(%arg0, %0) : (tensor<1x2x4x4x3xf32>, tensor<5xi32>) -> tensor<1x2x3x4x4xf32>
   %3 = "tf.Pad"(%2, %1) : (tensor<1x2x3x4x4xf32>, tensor<5x2xi32>) -> tensor<1x2x3x6x6xf32>
   func.return %2, %3 : tensor<1x2x3x4x4xf32>, tensor<1x2x3x6x6xf32>
-}
-
-// CHECK-LABEL: func @fold_into_pad_with_extra_uses
-func @fold_into_pad_with_extra_uses(%arg0: tensor<1x2x4x4x3xf32>) -> (tensor<1x2x3x4x4xf32>, tensor<1x2x3x6x6xf32>) {
-
-  // CHECK: %[[PERM:.*]] = "tf.Const"() {value = dense<[0, 1, 4, 2, 3]> : tensor<5xi32>}
-  // CHECK: %[[TRANSPOSE_OP:[0-9]*]] = "tf.Transpose"(%arg0, %[[PERM]])
-  // CHECK: %[[PADDING:.*]] = "tf.Const"() {value = dense<{{\[\[}}0, 0], [0, 0], [1, 1], [1, 1], [0, 0]]> : tensor<5x2xi32>}
-  // CHECK: %[[PAD_OP:[0-9]*]] = "tf.Pad"(%arg0, %[[PADDING]])
-  // CHECK: %[[DUP_TRANSPOSE_OP:[0-9]*]] = "tf.Transpose"(%[[PAD_OP]], %[[PERM]])
-  // CHECK: return %[[TRANSPOSE_OP]], %[[DUP_TRANSPOSE_OP]]
-
-  %0 = "tf.Const"() {value = dense<[0, 1, 4, 2, 3]> : tensor<5xi32>} : () -> tensor<5xi32>
-  %1 = "tf.Const"() {value = dense<[[0, 0], [0, 0], [0, 0], [1, 1], [1, 1]]> : tensor<5x2xi32>} : () -> tensor<5x2xi32>
-  %2 = "tf.Transpose"(%arg0, %0) : (tensor<1x2x4x4x3xf32>, tensor<5xi32>) -> tensor<1x2x3x4x4xf32>
-  %3 = "tf.Pad"(%2, %1) : (tensor<1x2x3x4x4xf32>, tensor<5x2xi32>) -> tensor<1x2x3x6x6xf32>
-  return %2, %3 : tensor<1x2x3x4x4xf32>, tensor<1x2x3x6x6xf32>
 }

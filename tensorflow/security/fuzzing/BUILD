@@ -130,7 +130,6 @@ tf_fuzz_target(
 tf_fuzz_target(
     name = "tstring_fuzz",
     srcs = ["tstring_fuzz.cc"],
-    tags = ["notap"],  # TODO(188445161): Flaky, re-enable.
     deps = [
         "//tensorflow/core/platform:tstring",
     ],
@@ -265,19 +264,5 @@ tf_py_fuzz_target(
         "noautofuzz",
         "notap",
     ],  # Run in OSS only.
-    deps = [":python_fuzzing"],
-)
-
-tf_py_fuzz_target(
-    name = "sparseCountSparseOutput_fuzz",
-    srcs = ["sparseCountSparseOutput_fuzz.py"],
-    tags = ["notap"],  # Run in OSS only.
-    deps = [":python_fuzzing"],
-)
-
-tf_py_fuzz_target(
-    name = "tf2migration_fuzz",
-    srcs = ["tf2migration_fuzz.py"],
-    tags = ["notap"],  # Run in OSS only.
     deps = [":python_fuzzing"],
 )

@@ -14,25 +14,21 @@ limitations under the License.
 ==============================================================================*/
 #include "tensorflow/core/common_runtime/device/device_utils.h"
 
-#include <regex>
-
+#include "tensorflow/core/platform/regexp.h"
 #include "tensorflow/core/platform/status.h"
 #include "tensorflow/core/platform/strcat.h"
 #include "tensorflow/core/platform/stringpiece.h"
 
 namespace tensorflow {
 namespace device_utils {
-constexpr const char* kTfDeviceTypeRegEx = "[A-Z][A-Z_]*";
 
 Status ValidateDeviceType(StringPiece type) {
-  std::string device_type(type);
-  std::smatch match_results;
-  std::regex regex_exp(kTfDeviceTypeRegEx);
-  bool matches = std::regex_match(device_type, match_results, regex_exp);
+  static const LazyRE2 kTfDeviceTypeRegEx = {"[A-Z][A-Z_]*"};
+  bool matches = RE2::FullMatch(type, *kTfDeviceTypeRegEx);
   if (!matches) {
     return Status(error::FAILED_PRECONDITION,
                   strings::StrCat("Device name/type '", type, "' must match ",
-                                  kTfDeviceTypeRegEx, "."));
+                                  kTfDeviceTypeRegEx->pattern(), "."));
   }
   return OkStatus();
 }
