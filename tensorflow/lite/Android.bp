@@ -93,6 +93,7 @@ cc_library_static {
         "mutable_op_resolver.cc",
         "nnapi/nnapi_implementation.cc",
         "nnapi/nnapi_util.cc",
+        "npu_feature.cc",
         "optional_debug_tools.cc",
         "profiling/atrace_profiler.cc",
         "profiling/platform_profiler.cc",
@@ -120,6 +121,7 @@ cc_library_static {
         "libbase_headers",
         "libeigen",
         "libruy_headers",
+        "jni_headers",
     ],
     cflags: [
         "-DNAMESPACE_FOR_HASH_FUNCTIONS=farmhash",

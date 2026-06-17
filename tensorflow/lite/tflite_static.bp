@@ -177,6 +177,7 @@ filegroup {
         "nnapi/nnapi_implementation.cc",
         "nnapi/nnapi_util.cc",
         "nnapi/sl/SupportLibrary.cc",
+        "npu_feature.cc",
         "optional_debug_tools.cc",
         "profiling/atrace_profiler.cc",
         "profiling/platform_profiler.cc",

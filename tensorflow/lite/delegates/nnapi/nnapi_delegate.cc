@@ -64,6 +64,7 @@ limitations under the License.
 #include "tensorflow/lite/minimal_logging.h"
 #include "tensorflow/lite/nnapi/nnapi_implementation.h"
 #include "tensorflow/lite/nnapi/nnapi_util.h"
+#include "tensorflow/lite/npu_feature.h"
 #include "tensorflow/lite/util.h"
 #ifdef NNAPI_VERBOSE_VALIDATION
 #include "tensorflow/lite/schema/schema_generated.h"
@@ -4585,6 +4586,18 @@ TfLiteStatus NNAPIDelegateKernel::Prepare(TfLiteContext* context,
 
   const auto delegate_options =
       StatefulNnApiDelegate::GetOptions(node->delegate);
+
+  if (delegate_options.accelerator_name != nullptr &&
+      strcmp(delegate_options.accelerator_name, "google-edgetpu") == 0 &&
+      !DoesProcessHaveNpuFeatureAccess()) {
+    logging_internal::MinimalLogger::Log(
+        TFLITE_LOG_INFO,
+        "Application does not have NPU feature access, returning error. (add "
+        "<uses-feature android:name=\"android.hardware.npu\" /> to "
+        "manifest)");
+    return kTfLiteDelegateDataNotFound;
+  }
+
   if (nn_compilation_) {
     return kTfLiteOk;
   }
